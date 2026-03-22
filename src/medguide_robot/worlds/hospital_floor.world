@@ -1,0 +1,501 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <world name="hospital_floor">
+    <!-- Physics engine -->
+    <physics type="ode">
+      <real_time_update_rate>1000</real_time_update_rate>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>50</iters>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+        </constraints>
+      </ode>
+    </physics>
+
+    <!-- Scene configuration -->
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>true</shadows>
+    </scene>
+
+    <!-- Sun light -->
+    <light name="sun" type="directional">
+      <position>0 0 10</position>
+      <direction>-0.5 0.5 -1</direction>
+      <ambient>1 1 1 1</ambient>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <cast_shadows>true</cast_shadows>
+    </light>
+
+    <!-- Ground plane -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>20 20</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>20 20</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- =========== HOSPITAL LAYOUT =========== -->
+    
+    <!-- Outer boundary walls -->
+    <!-- West wall -->
+    <model name="wall_west">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 10 2.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 10 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/White</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>-0.5 2.5 1.25 0 0 0</pose>
+    </model>
+
+    <!-- East wall -->
+    <model name="wall_east">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 10 2.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 10 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/White</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>6.5 2.5 1.25 0 0 0</pose>
+    </model>
+
+    <!-- North wall -->
+    <model name="wall_north">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>7 0.2 2.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>7 0.2 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/White</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>3 5.5 1.25 0 0 0</pose>
+    </model>
+
+    <!-- South wall -->
+    <model name="wall_south">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>7 0.2 2.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>7 0.2 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/White</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>3 -0.5 1.25 0 0 0</pose>
+    </model>
+
+    <!-- ========== INTERIOR WALLS ========== -->
+    
+    <!-- Dividing wall between rooms A and B (vertical, with doorway) -->
+    <model name="wall_ab_lower">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.2 0.8 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.2 0.8 2.5</size></box></geometry>
+          <material><script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/LightGrey</name>
+          </script></material>
+        </visual>
+      </link>
+      <pose>3.0 0.0 1.25 0 0 0</pose>
+    </model>
+    <model name="wall_ab_upper">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.2 0.8 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.2 0.8 2.5</size></box></geometry>
+          <material><script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/LightGrey</name>
+          </script></material>
+        </visual>
+      </link>
+      <pose>3.0 2.4 1.25 0 0 0</pose>
+    </model>
+
+    <!-- Dividing wall between rooms B and C (vertical) -->
+    <model name="wall_bc_divider">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 2 2.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 2 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/LightGrey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>5.0 3.5 1.25 0 0 0</pose>
+    </model>
+
+    <!-- Horizontal divider (top-bottom separation, with doorway) -->
+    <model name="wall_horiz_left">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>2.0 0.2 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>2.0 0.2 2.5</size></box></geometry>
+          <material><script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/LightGrey</name>
+          </script></material>
+        </visual>
+      </link>
+      <pose>0.5 3.0 1.25 0 0 0</pose>
+    </model>
+    <!-- Doorway gap at X=1.5 to X=2.7 (1.2m gap) -->
+    <model name="wall_horiz_middle">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>2.0 0.2 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>2.0 0.2 2.5</size></box></geometry>
+          <material><script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/LightGrey</name>
+          </script></material>
+        </visual>
+      </link>
+      <pose>3.7 3.0 1.25 0 0 0</pose>
+    </model>
+    <!-- Doorway gap at X=4.7 to X=5.3 (0.6m gap for room C access) -->
+    <model name="wall_horiz_right">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>1.0 0.2 2.5</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>1.0 0.2 2.5</size></box></geometry>
+          <material><script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/LightGrey</name>
+          </script></material>
+        </visual>
+      </link>
+      <pose>6.0 3.0 1.25 0 0 0</pose>
+    </model>
+
+    <!-- ========== OBSTACLES / FURNITURE ========== -->
+
+    <!-- Table in room A -->
+    <model name="table_a">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.8 0.6 0.7</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.8 0.6 0.7</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>1.5 0.8 0.35 0 0 0</pose>
+    </model>
+
+    <!-- Chair in room A -->
+    <model name="chair_a">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.25</radius>
+              <length>0.7</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.25</radius>
+              <length>0.7</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>0.7 1.8 0.35 0 0 0</pose>
+    </model>
+
+    <!-- Bed in room B -->
+    <model name="bed_b">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.0 2.0 0.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1.0 2.0 0.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>4.5 1.5 0.25 0 0 0</pose>
+    </model>
+
+    <!-- Cabinet in room C -->
+    <model name="cabinet_c">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.5 1.0 1.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.5 1.0 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>5.3 4.8 0.75 0 0 0</pose>
+    </model>
+
+    <!-- ========== NAVIGATION MARKERS ========== -->
+
+    <!-- Room A marker (visual only) -->
+    <model name="room_a_marker">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.1</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>1.0 1.0 0.1 0 0 0</pose>
+    </model>
+
+    <!-- Room B marker (visual only) -->
+    <model name="room_b_marker">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.1</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>5.0 1.0 0.1 0 0 0</pose>
+    </model>
+
+    <!-- Room C marker (visual only) -->
+    <model name="room_c_marker">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.1</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>5.0 5.0 0.1 0 0 0</pose>
+    </model>
+
+    <!-- Dock marker (visual only, charging station) -->
+    <model name="dock_marker">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.1</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Yellow</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose>0.5 0.5 0.1 0 0 0</pose>
+    </model>
+
+  </world>
+</sdf>

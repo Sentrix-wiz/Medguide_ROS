@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  medguide:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: medguide-ros:humble-latest
+    container_name: medguide-robot
+    
+    # Enable GUI support (for RViz and Gazebo)
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - ROS_DOMAIN_ID=0
+      - ROS_LOCALHOST_ONLY=0
+    
+    # Mount X11 socket for GUI
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${XAUTHORITY}:/root/.Xauthority:rw
+      - ./src:/home/ros/medguide_ws/src
+      - ./config:/home/ros/medguide_ws/config
+      - ./launch:/home/ros/medguide_ws/launch
+      - ./worlds:/home/ros/medguide_ws/worlds
+      - ./rviz:/home/ros/medguide_ws/rviz
+      - ./scripts:/home/ros/medguide_ws/scripts
+    
+    # Network settings
+    network_mode: "host"
+    
+    # Device access (required for certain hardware)
+    devices:
+      - /dev/dri:/dev/dri
+    
+    # Interactive terminal
+    stdin_open: true
+    tty: true
+    
+    # Entrypoint command
+    # Can override with: docker-compose run medguide bash
+    # Or to launch system: docker-compose run medguide ros2 launch medguide_bringup unified.launch.py
+    entrypoint: /bin/bash
+
+  # Optional: Separate container for monitoring
+  medguide-monitor:
+    image: medguide-ros:humble-latest
+    container_name: medguide-monitor
+    
+    environment:
+      - ROS_DOMAIN_ID=0
+      - ROS_LOCALHOST_ONLY=0
+    
+    volumes:
+      - ./scripts:/home/ros/medguide_ws/scripts
+      - ./config:/home/ros/medguide_ws/config
+    
+    network_mode: "host"
+    stdin_open: true
+    tty: true
+    
+    depends_on:
+      - medguide
+    
+    entrypoint: /bin/bash

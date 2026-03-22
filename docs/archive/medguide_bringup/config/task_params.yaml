@@ -1,0 +1,39 @@
+# Task management parameters for MedGuide
+
+mission_scheduler_node:
+  node_name: "mission_scheduler"
+  
+  # Mission execution
+  mission_sequence: ["room_a", "room_b", "room_c", "dock"]
+  mission_loop_rate_hz: 1.0
+  
+  # Status publishing topics
+  mission_status_topic: "/mission_status"
+  mission_metrics_topic: "/mission_metrics"
+  
+  # Battery simulation
+  battery_drain_enabled: true
+  battery_drain_rate_percent_per_min: 0.5
+  
+  # Emergency stop handling
+  emergency_stop_topic: "/emergency_stop"
+  goal_status_topic: "/goal_status"
+  
+  # Logging
+  log_level: "INFO"
+  enable_metrics_publishing: true
+  
+  # TODO: Future multi-robot support
+  # robot_namespace: "/robot_1"
+  # max_parallel_missions: 1
+
+# Task queue configuration
+task_queue:
+  enabled: true
+  max_queued_tasks: 10
+  priority_based: false
+  
+  # Task retry policy
+  enable_retry: true
+  max_retries: 3
+  retry_delay_seconds: 5

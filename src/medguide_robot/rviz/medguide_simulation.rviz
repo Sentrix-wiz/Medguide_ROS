@@ -1,0 +1,117 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Value: true
+      Cell Size: 1
+      Color: 160; 160; 164
+      Line Style:
+        Line Width: 0.03
+        Value: Lines
+      Plane: XY
+      Plane Cell Count: 20
+
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Enabled: true
+      Value: true
+      Description Source: Topic
+      Description Topic:
+        Value: /robot_description
+        Depth: 5
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+      Alpha: 1.0
+
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: true
+      Value: true
+      Show Axes: true
+      Show Names: true
+      Frame Timeout: 15
+      Marker Scale: 0.5
+      Update Interval: 0
+
+    - Class: rviz_default_plugins/LaserScan
+      Name: LaserScan
+      Enabled: true
+      Value: true
+      Topic:
+        Value: /scan
+        Depth: 5
+        Durability Policy: Volatile
+        Reliability Policy: Best Effort
+      Color Transformer: FlatColor
+      Color: 255; 0; 0
+      Size (m): 0.03
+      Size (Pixels): 3
+      Style: Points
+      Alpha: 1.0
+      Min Color: 0; 0; 0
+      Max Color: 255; 255; 255
+      Decay Time: 0
+
+    - Class: rviz_default_plugins/Odometry
+      Name: Odometry
+      Enabled: true
+      Value: true
+      Topic:
+        Value: /odom
+        Depth: 5
+        Durability Policy: Volatile
+        Reliability Policy: Best Effort
+      Position Tolerance: 0.1
+      Angle Tolerance: 0.1
+      Keep: 100
+      Shape:
+        Value: Arrow
+        Alpha: 0.5
+        Color: 0; 255; 0
+        Shaft Length: 0.1
+        Shaft Radius: 0.01
+        Head Length: 0.03
+        Head Radius: 0.03
+
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: odom
+    Frame Rate: 30
+
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+      Line color: 128; 128; 0
+
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/ThirdPersonFollower
+      Name: ThirdPersonFollower
+      Distance: 8.0
+      Focal Point:
+        X: 3.0
+        Y: 2.5
+        Z: 0.0
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05
+      Pitch: 0.7854
+      Yaw: 0.7854
+      Value: ThirdPersonFollower
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 800
+  Width: 1200
+  X: 50
+  Y: 50

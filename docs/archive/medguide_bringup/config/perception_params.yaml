@@ -1,0 +1,31 @@
+# Perception system parameters for MedGuide
+
+obstacle_detector_node:
+  node_name: "obstacle_detector"
+  
+  # Lidar subscription
+  scan_topic: "/scan"
+  
+  # Emergency stop and obstacle detection
+  emergency_stop_topic: "/emergency_stop"
+  obstacle_distance_topic: "/obstacle_distance"
+  
+  # Detection parameters
+  obstacle_threshold_m: 0.3              # meters - distance threshold for emergency stop
+  filter_angle_degrees: 45.0             # Front-facing detection cone in degrees
+  
+  # QoS settings
+  use_sim_time: true
+  
+  # Diagnostics
+  log_level: "INFO"
+  publish_diagnostics: true
+  diagnostic_topic: "/perception/diagnostics"
+
+# Camera detection (placeholder for future implementation)
+camera_detection:
+  enabled: false
+  topic: "/camera/rgb/image_raw"
+  detection_confidence_threshold: 0.7
+  # TODO: Implement CNN-based human detection with YOLO or similar
+  # TODO: Publish detected humans to /detection/humans topic

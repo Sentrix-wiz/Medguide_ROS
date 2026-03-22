@@ -1,0 +1,5 @@
+trial,mission_id,goal_name,success,duration_sec,distance_m,timestamp
+1,M1773901843,room_a,False,0.02,0.0,2026-03-19T12:00:44.022754
+1,M1773901843,room_b,False,0.02,0.0,2026-03-19T12:00:45.122545
+1,M1773901843,room_c,False,0.02,0.0,2026-03-19T12:00:46.211570
+1,M1773901843,dock,False,0.01,0.0,2026-03-19T12:00:47.279814

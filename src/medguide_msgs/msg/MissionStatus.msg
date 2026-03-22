@@ -1,0 +1,11 @@
+std_msgs/Header header
+string mission_id
+string state
+string current_goal
+uint8 goals_total
+uint8 goals_succeeded
+uint8 goals_failed
+uint8 emergency_stops
+float32 battery_pct
+float32 distance_m
+float32 elapsed_sec

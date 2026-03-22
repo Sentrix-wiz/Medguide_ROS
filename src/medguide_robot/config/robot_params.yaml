@@ -1,0 +1,43 @@
+# MedGuide Robot — Production Parameters
+
+sensor_monitor:
+  ros__parameters:
+    scan_topic: '/scan'
+    odom_topic: '/odom'
+    log_rate_hz: 0.5
+
+# === Safety Perception ===
+obstacle_detector:
+  ros__parameters:
+    obstacle_threshold_m: 0.18    # TurtleBot3 body radius ~0.10m; trigger at 18cm
+    clear_threshold_m: 0.25       # Hysteresis: clear when 25cm away
+    filter_angle_degrees: 45.0    # Front ±22.5° cone (tighter = fewer false positives)
+    scan_topic: '/scan'
+    detection_rate_hz: 10.0
+
+# === Mission Scheduling ===
+mission_scheduler:
+  ros__parameters:
+    mission_rooms: ['room_a', 'room_b', 'room_c', 'dock']
+    battery_drain_pct: 2.0
+    battery_abort_pct: 10.0
+    goal_timeout_sec: 120.0
+    # Hospital goal coordinates (match Gazebo world)
+    rooms:
+      dock:
+        x: 1.0
+        y: 1.2
+        yaw: 0.0
+      room_a:
+        x: 1.5
+        y: 2.0
+        yaw: 0.0
+      room_b:
+        x: 4.5
+        y: 0.5
+        yaw: 1.57
+      room_c:
+        x: 2.0
+        y: 4.0
+        yaw: 3.14
+

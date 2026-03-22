@@ -1,0 +1,9 @@
+std_msgs/Header header
+string mode
+bool stack_running
+bool localized
+bool estop_active
+uint8 experiment_trial
+uint8 experiment_total
+float32 battery_pct
+string active_goal

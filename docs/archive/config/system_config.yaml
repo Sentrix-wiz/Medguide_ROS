@@ -1,0 +1,43 @@
+# System-wide configuration for MedGuide
+
+# ROS 2 Common settings
+ros2:
+  use_sim_time: true
+  log_level: "INFO"
+
+# Robot hardware settings (for TurtleBot3 Burger)
+robot:
+  model: "burger"
+  namespace: "/robot"
+  frame_id: "base_link"
+  
+  # Kinematics
+  wheel_separation: 0.160  # meters (TurtleBot3 Burger)
+  wheel_radius: 0.033     # meters (TurtleBot3 Burger)
+
+# Simulation environment
+simulation:
+  enabled: true
+  simulator: "gazebo"
+  world_file: "hospital_floor.world"
+  
+  # Initial pose of robot in world
+  initial_pose:
+    x: 0.5
+    y: 0.5
+    z: 0.0
+    yaw: 0.0
+
+# Logging and diagnostics
+logging:
+  format: "[%(name)s] %(levelname)s: %(message)s"
+  mission_log_file: "/tmp/medguide_mission.log"
+  enable_file_logging: true
+  
+# Monitoring and observability
+monitoring:
+  enable_rqt_graph_compatibility: true
+  enable_tf_publishing: true
+  tf_frame_broadcast_rate: 10  # Hz
+  publish_diagnostics: true
+  diagnostics_rate: 1  # Hz

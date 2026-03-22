@@ -1,0 +1,39 @@
+# Navigation system parameters for MedGuide
+
+navigation_goal_sender_node:
+  node_name: "navigation_goal_sender"
+  
+  # Nav2 action server
+  nav2_action_server: "navigate_to_pose"
+  goal_status_topic: "/goal_status"
+  
+  # Timeout for goal execution
+  goal_timeout_seconds: 120
+  
+  # Nav2 stack configuration
+  use_sim_time: true
+  
+  # Logging
+  log_level: "INFO"
+  enable_feedback_logging: true
+
+# Nav2 parameter overrides for hospital simulation
+nav2:
+  # Costmap parameters
+  local_costmap:
+    plugins: ["obstacles_layer", "inflation_layer"]
+    inflation_radius: 0.3
+    cost_scaling_factor: 1.0
+  
+  # Planning parameters
+  planner_server:
+    planner_plugin: "nav2_navfn_planner/NavfnPlanner"
+    min_x_velocity_scalar: 0.0
+    min_y_velocity_scalar: 0.0
+    max_velocity_scalar: 1.0
+  
+  # Controller parameters
+  controller_server:
+    controller_plugin: "nav2_regulated_pure_pursuit_controller/RegulatedPurePursuitController"
+    desired_linear_vel: 0.5
+    max_angular_vel: 1.0
