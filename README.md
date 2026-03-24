@@ -323,5 +323,5 @@ MedGuide-ROS: Autonomous Hospital Delivery Robot (2026)
 
 ## 📝 License
 
-Apache 2.0 — See [LICENSE](LICENSE).  
-Academic research project — cite as: *Pragadeesh, "MedGuide-ROS: Autonomous Hospital Delivery Robot," 2026.*
+MIT License — See [LICENSE](LICENSE).  
+Research project — cite as: *Pragadeesh, "MedGuide-ROS: Autonomous Hospital Delivery Robot," 2026.*
