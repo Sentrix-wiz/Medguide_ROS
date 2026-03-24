@@ -1,14 +1,38 @@
 # 🏥 MedGuide-ROS — Autonomous Hospital Delivery Robot
 
-[![ROS2 Humble](https://img.shields.io/badge/ROS2-Humble-blue)](https://docs.ros.org/en/humble/)
-[![Python 3.10](https://img.shields.io/badge/Python-3.10-blue)](https://python.org)
-[![Build](https://img.shields.io/badge/colcon%20build-passing-brightgreen)]()
-[![License](https://img.shields.io/badge/License-Apache%202.0-lightgrey)](LICENSE)
+[![ROS2 Humble](https://img.shields.io/badge/ROS2-Humble-blue.svg?style=for-the-badge&logo=ros)](https://docs.ros.org/en/humble/)
+[![Python 3.10](https://img.shields.io/badge/Python-3.10-blue.svg?style=for-the-badge&logo=python)](https://python.org)
+[![Ubuntu 22.04](https://img.shields.io/badge/Ubuntu-22.04-orange.svg?style=for-the-badge&logo=ubuntu)](https://ubuntu.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
 > **Autonomous mobile robot for repeatable hospital supply delivery.**  
 > Built on ROS2 Humble + Nav2 + Gazebo · Systematically validated across 40 independent missions.
 
 ---
+
+## 📑 Table of Contents
+- [✨ Key Features](#-key-features)
+- [📽 Demo](#-demo)
+- [🔬 Research Summary](#-research-summary)
+- [🏗 System Architecture](#-system-architecture)
+- [🚀 Quick Start](#-quick-start)
+- [🤖 Real Robot Deployment](#-real-robot-deployment)
+- [📁 Repository Structure](#-repository-structure)
+- [📄 Documentation](#-research-documentation)
+
+---
+
+## ✨ Key Features
+
+- **🏥 Custom Gazebo Hospital** — 7m × 6m simulated environment with corridors, rooms, and furniture.
+- **🤖 Autonomous Navigation** — Nav2-powered multi-room delivery operations.
+- **🛡️ LiDAR Safety Layer** — Custom parametric cone filter for emergency obstacle detection.
+- **📊 Experiment Automation** — Programmable N-trial runner with automatic CSV data logging.
+- **🎛️ Sci-Fi Command Console** — PyQt5 dashboard with live telemetry, modes, and D-pad teleop.
+- **📈 Statistical Analysis** — Automated Python scripts generating publication-ready charts.
+
+---
+
 
 ## 📽 Demo
 
@@ -146,6 +170,22 @@ source install/setup.bash
 | ⛔ Shutdown | Full stack teardown |
 
 ---
+
+## 🤖 Real Robot Deployment
+
+This system is designed for seamless **Sim-to-Real transfer**. The same ROS2 nodes, UI, and navigation stack can be deployed on physical TurtleBot3 hardware.
+
+We provide a comprehensive guide on how to:
+1. Setup the Raspberry Pi and OpenCR board
+2. SLAM map the real hospital environment
+3. Adjust Nav2 parameters (velocities, inflation) for safety
+4. Launch the exact same MedGuide-ROS system on the physical robot
+
+**Read the full deployment guide here:**  
+👉 [`docs/real_robot_deployment.md`](docs/real_robot_deployment.md)
+
+---
+
 
 ## 📁 Repository Structure
 
