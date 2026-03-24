@@ -1,0 +1,299 @@
+{
+  "repo_notes": [
+    {
+      "content": ""
+    }
+  ],
+  "pages": [
+    {
+      "title": "MedGuide-ROS Overview",
+      "purpose": "High-level introduction to the MedGuide-ROS autonomous hospital delivery robot: its purpose, architecture layers, key technologies, and how the major subsystems relate. Links to all child pages for deeper coverage.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Getting Started & Repository Layout",
+      "purpose": "Step-by-step guide for cloning, building with colcon, sourcing the workspace, and running the full stack for the first time. Explains the top-level directory structure (src/, maps/, logs/, experiments/, docs/, worlds/) and the two ROS2 packages (medguide_robot and medguide_msgs).",
+      "parent": "MedGuide-ROS Overview",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "System Architecture & Node Graph",
+      "purpose": "Describes the three-layer architecture (Dashboard control layer, FSM orchestration layer, functional robotics layer) and the complete ROS2 node graph: which nodes publish/subscribe to which topics and call which services. Includes the lifecycle state machine (OFFLINE → LAUNCHING → IDLE → TELEOP / AUTONOMOUS / EXPERIMENT).",
+      "parent": "MedGuide-ROS Overview",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Custom ROS2 Interfaces (medguide_msgs)",
+      "purpose": "Overview of the medguide_msgs package — the shared message and service definitions that tie all nodes together. Links to child pages for messages and services.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Message Definitions",
+      "purpose": "Detailed reference for the three custom message types: SystemState.msg (mode, stack_running, localized, estop_active, battery_pct, active_goal), MissionStatus.msg (mission_id, state, goals_total/succeeded/failed, distance_m, elapsed_sec), and GoalResult.msg (goal_name, success, duration_sec, distance_m, straight_line_m). Explains each field and which node publishes it.",
+      "parent": "Custom ROS2 Interfaces (medguide_msgs)",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Service Definitions",
+      "purpose": "Detailed reference for SetMode.srv (mode string → success bool + message) and RunExperiment.srv (num_trials → success + message). Explains the valid mode strings, preconditions, and error responses. Notes that the Dashboard is the only caller and the ExperimentOrchestrator is the only server.",
+      "parent": "Custom ROS2 Interfaces (medguide_msgs)",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Core Nodes (medguide_robot)",
+      "purpose": "Overview of all six Python ROS2 nodes in the medguide_robot package, their roles, and how they interact. Links to child pages for each functional group.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Experiment Orchestrator",
+      "purpose": "Deep dive into experiment_orchestrator_node.py — the central FSM and system lifecycle manager. Covers: mode transitions and validation, the /set_mode and /run_experiment service handlers, subprocess management for launching the full stack (medguide_full.launch.py), AMCL convergence detection, the N-trial experiment loop (background thread), and clean shutdown logic.",
+      "parent": "Core Nodes (medguide_robot)",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Mission Scheduler",
+      "purpose": "Deep dive into mission_scheduler_node.py — the Nav2 ActionClient that drives multi-room delivery. Covers: the MissionState FSM (IDLE/NAVIGATING/EMERGENCY_STOP/COMPLETED/FAILED/ABORTED), room coordinate loading from YAML, NavigateToPose goal dispatch, goal retry logic (up to 3 retries), odometry distance accumulation with teleportation filter, battery simulation, and GoalResult/MissionStatus publishing.",
+      "parent": "Core Nodes (medguide_robot)",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Obstacle Detector & Safety Layer",
+      "purpose": "Deep dive into obstacle_detector_node.py — the independent LiDAR safety layer. Covers: the parametric front-facing cone filter (configurable half-angle), hysteresis-based emergency stop logic (obstacle_threshold_m vs clear_threshold_m), rate limiting, /emergency_stop and /obstacle_distance publishing, and how the mission_scheduler responds to e-stop signals.",
+      "parent": "Core Nodes (medguide_robot)",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Diagnostics, Sensor Monitor & Mission Logger",
+      "purpose": "Covers the three supporting nodes: sensor_monitor_node.py (subscribes to /scan and /odom, logs LiDAR and odometry statistics), diagnostics_node.py (aggregates system health into DiagnosticArray and /system_health JSON, watchdog timeouts for node liveness), and mission_logger_node.py (writes timestamped JSON event logs per mission to ~/medguide_ws/logs/, records e-stop events, state changes, and health snapshots).",
+      "parent": "Core Nodes (medguide_robot)",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Dashboard (PyQt5 GUI)",
+      "purpose": "Overview of the PyQt5 command console dashboard (scripts/dashboard.py) and its ROS2 bridge. Links to child pages for UI layout and control flow.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "UI Layout & Panels",
+      "purpose": "Describes the dashboard's visual layout: the SYSTEM_LINK_STATE panel (mode, stack readiness, localization, e-stop, battery), MISSION_TELEMETRY panel (state, current waypoint, progress counter, distance, elapsed time), STAGE control panel (LAUNCH/TELEOP/AUTO_MISSION/BATCH_RUN/ABORT/SHUTDOWN buttons), DIRECT_OVERRIDE teleop D-pad panel, TERMINAL RESULTS pane, and EVENT_LOG pane. References dashboard screenshots in docs/images/.",
+      "parent": "Dashboard (PyQt5 GUI)",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "ROS2 Bridge & Control Flow",
+      "purpose": "Explains the RosBridge class: how it runs a background ROS2 spin thread, subscribes to /system_state, /mission_status, /goal_result, calls /set_mode and /run_experiment services, and publishes /cmd_vel for teleop. Covers PyQt5 signal/slot wiring, button enable/disable logic based on system mode, keyboard event filtering for WASD teleop, and the animation timer for visual feedback.",
+      "parent": "Dashboard (PyQt5 GUI)",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Navigation Stack & Configuration",
+      "purpose": "Overview of how Nav2 is integrated and configured for the hospital environment. Links to child pages for Nav2 parameters and the hospital map.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Nav2 Parameters (nav2_params.yaml)",
+      "purpose": "Detailed walkthrough of nav2_params.yaml: AMCL configuration (particle counts, motion model, initial pose at dock), BT Navigator (behavior tree XML, replanning + recovery), Controller Server (DWB local planner with critic weights, goal tolerances, velocity limits), local and global costmap layers (VoxelLayer, InflationLayer with 0.25m radius), Planner Server (NavfnPlanner/A*), Behavior Server (spin/backup/wait), and VelocitySmoother. Explains the corridor passability threshold formula.",
+      "parent": "Navigation Stack & Configuration",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Hospital Map & Simulation World",
+      "purpose": "Covers the hospital_map.pgm/yaml occupancy grid (0.05m/px resolution, trinary mode, origin at -1,-1), the hospital_floor.world Gazebo SDF environment (7m×6m floor plan), room coordinate definitions in robot_params.yaml (dock, room_a, room_b, room_c), and the SLAM mapping workflow (slam_mapping.launch.py with slam_toolbox). References the gazebo_hospital.png and rviz_navigation.png documentation images.",
+      "parent": "Navigation Stack & Configuration",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Launch System",
+      "purpose": "Overview of the four launch files and how they compose the full system. Links to child pages for the full-stack launch and the simulation-only launch.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Full Stack Launch (medguide_full.launch.py)",
+      "purpose": "Explains medguide_full.launch.py — the primary integration entrypoint. Covers the eight components it launches in order: Gazebo simulation (via gazebo_sim.launch.py), Nav2 bringup (with nav2_params.yaml and hospital_map), obstacle_detector, mission_scheduler, sensor_monitor, diagnostics, mission_logger, and RViz2. Explains launch arguments (map, launch_rviz) and how robot_params.yaml is passed to each node.",
+      "parent": "Launch System",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Gazebo Simulation Launch & SLAM Mapping",
+      "purpose": "Explains gazebo_sim.launch.py (gzserver + gzclient + robot_state_publisher + spawn_turtlebot3 at dock position) and slam_mapping.launch.py (Gazebo + async_slam_toolbox_node + sensor_monitor + RViz). Covers the TURTLEBOT3_MODEL=burger environment variable requirement and the map-saving workflow.",
+      "parent": "Launch System",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Experimentation Framework",
+      "purpose": "Overview of the research experimentation pipeline: how N-trial experiments are orchestrated, data is collected, and statistical analysis is performed. Links to child pages for data collection and analysis.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Data Collection & CSV Logs",
+      "purpose": "Explains the mission_logger's CSV output format (trial, mission_id, goal_name, success, duration_sec, distance_m, straight_line_m), the logs/ directory structure with named experiment files (baseline.csv, inflation_085.csv, velocity_040.csv, planner_5hz.csv, etc.), and how the ExperimentOrchestrator's N-trial loop drives sequential mission execution for statistical data collection.",
+      "parent": "Experimentation Framework",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Statistical Analysis (analyze_results.py)",
+      "purpose": "Covers experiments/analyze_results.py: loading and grouping CSV data by trial, computing per-trial metrics (success rate, mission duration, path distance, path efficiency), Mann-Whitney U tests and Cohen's d effect size comparisons between configurations, and the four generated plots (fig1_success_rate, fig2_duration_boxplot, fig3_distance_line, fig4_efficiency). Explains the two experimental configurations (Config A tuned 0.18m vs Config B strict 0.25m obstacle threshold).",
+      "parent": "Experimentation Framework",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Testing",
+      "purpose": "Overview of the test suite in src/medguide_robot/test/ and how to run it with colcon test. Links to child pages for unit test coverage.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Mission State Machine Tests",
+      "purpose": "Documents test_mission_states.py: the extracted MissionStateMachine class used for isolated testing, test cases for state transitions (start from IDLE, reject double-start, complete all goals, mixed success/failure, abort, emergency stop pause/resume), and the accumulate_distance function tests (first reading, straight line, diagonal, teleportation filter, zero movement).",
+      "parent": "Testing",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Obstacle Detector Logic Tests",
+      "purpose": "Documents test_obstacle_logic.py: the FakeMsg LaserScan stub, the extracted find_closest_in_cone function tests (obstacle in front, obstacle behind ignored, NaN/inf filtering, empty scan, out-of-range beams), and the apply_hysteresis function tests (trigger below threshold, clear above clear_threshold, hysteresis band stays active/inactive, oscillation prevention sequence).",
+      "parent": "Testing",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Real Robot Deployment",
+      "purpose": "Overview of the sim-to-real transfer methodology and hardware requirements. Links to child pages for hardware setup and parameter differences.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Hardware Setup & Network Configuration",
+      "purpose": "Covers TurtleBot3 Burger hardware (OpenCR, Raspberry Pi 4, LDS-01 LiDAR, LiPo battery), Raspberry Pi OS/ROS2 setup, OpenCR firmware flashing, ROS_DOMAIN_ID network configuration, and the remote PC / robot WiFi topology. References the real_robot_deployment.md guide.",
+      "parent": "Real Robot Deployment",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Sim-to-Real Parameter Differences",
+      "purpose": "Documents the key parameter changes required for real hardware: use_sim_time false, removing Gazebo launch, reduced max_vel_x (0.22→0.15 m/s), increased inflation_radius (0.25→0.35 m), increased obstacle threshold (0.18→0.25 m), increased AMCL particles (2000→5000), and the SLAM mapping workflow for real environments. Includes the sim-to-real gap analysis table and the pre-autonomous checklist.",
+      "parent": "Real Robot Deployment",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    },
+    {
+      "title": "Glossary",
+      "purpose": "Definitions of all codebase-specific terms, ROS2 concepts, navigation jargon, and domain abbreviations that an onboarding engineer needs to understand MedGuide-ROS. Each entry includes code pointers.",
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ]
+    }
+  ]
+}
