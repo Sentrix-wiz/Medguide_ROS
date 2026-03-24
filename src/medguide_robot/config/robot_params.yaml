@@ -29,15 +29,15 @@ mission_scheduler:
         y: 1.2
         yaw: 0.0
       room_a:
-        x: 1.5
-        y: 2.0
+        x: 2.5
+        y: 1.5
         yaw: 0.0
       room_b:
-        x: 4.5
+        x: 3.5
         y: 0.5
         yaw: 1.57
       room_c:
-        x: 2.0
-        y: 4.0
+        x: 2.5
+        y: 2.5
         yaw: 3.14
 

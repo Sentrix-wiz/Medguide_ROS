@@ -12,21 +12,38 @@
 
 ## 📽 Demo
 
-Watch the MedGuide-ROS autonomous mission execution:
+### 🎥 Demo Video
 
-👉 **[https://youtube.com/YOUR_VIDEO_LINK](https://youtube.com/YOUR_VIDEO_LINK)**
+> **Full system walkthrough video** — Dashboard launch, Gazebo simulation, autonomous navigation, and teleop control.
 
-The demo shows:
-- Dashboard launch and mission selection
-- Autonomous navigation in Gazebo hospital environment
-- RViz path planning visualization
-- Mission completion and CSV logging
+https://github.com/Sentrix-wiz/Medguide-ROS/raw/main/docs/images/medguide_demo.webm
+
+📥 [Download Demo Video (53MB)](docs/images/medguide_demo.webm)
+
+### Gazebo Hospital World
+> TurtleBot3 Burger inside the custom hospital environment with LiDAR rays (blue) visible, furniture obstacles, and room dividers with doorways.
+
+![Gazebo Hospital Simulation](docs/images/gazebo_hospital.png)
 
 ### RViz Navigation View
+> Nav2 costmap overlay, AMCL localization particles (red), and planned global/local paths.
 
-<!-- Add a screenshot: docs/images/rviz_navigation.png -->
-> *Screenshot: place `docs/images/rviz_navigation.png` to enable this image.*
-<!-- ![RViz Navigation](docs/images/rviz_navigation.png) -->
+![RViz Navigation](docs/images/rviz_navigation.png)
+
+### Dashboard — Command Console
+> Sci-fi UI showing system state (IDLE, ONLINE, LOCALIZED), mission telemetry, control buttons, and event log.
+
+![Dashboard IDLE](docs/images/dashboard_idle.png)
+
+### Teleop Mode
+> Manual robot control via on-screen W/A/S/D directional pad with live telemetry.
+
+![Dashboard Teleop](docs/images/dashboard_teleop.png)
+
+### Full Desktop
+> All three windows running simultaneously — Dashboard, Gazebo, and RViz.
+
+![Full Desktop](docs/images/screenshot_full_desktop.png)
 
 ---
 
@@ -107,7 +124,7 @@ This project investigates navigation feasibility limits rather than only obstacl
 
 ```bash
 # Clone and build
-git clone https://github.com/<you>/medguide-ros ~/medguide_ws
+git clone https://github.com/Sentrix-wiz/Medguide-ROS.git ~/medguide_ws
 cd ~/medguide_ws
 source /opt/ros/humble/setup.bash
 colcon build                    # ~2s clean build

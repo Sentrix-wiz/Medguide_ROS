@@ -18,6 +18,7 @@ __pycache__/
 *~
 .pyre/
 .pyre_configuration
+pyrightconfig.json
 
 # OS
 .DS_Store
@@ -29,3 +30,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Gemini artifacts
+.gemini/
